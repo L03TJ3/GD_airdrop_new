@@ -61,6 +61,7 @@ export default function Switch(props) {
 
   useEffect(() => {
     setIsMobile(props.isMobile);
+    console.log('switch props -->', props);
     if (props.currentConnection){
       setProviderInstance(props.currentConnection.providerInstance);
       let address = formatAddress(props.currentConnection.connectedAddress);
@@ -82,6 +83,7 @@ export default function Switch(props) {
   // this shows error message and removes/hides button for claiming
   const alreadyClaimed = async(currentConnection) => {
     setQuery({status: 'get-claim-status'});
+    console.log('triggered');
     const claimStatus = getClaimStatus(currentConnection);
     claimStatus.then((res) => {
       if (!res) {
