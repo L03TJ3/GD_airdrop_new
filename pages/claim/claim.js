@@ -110,6 +110,7 @@ export default function Claim(props){
   const backToRecipient = useCallback(() => {
     props.updateStep('step3');
     setQuery({status: 'init'});
+    showChangeRecipient(changeRecOpen);
   }, [setQuery]);
 
   const skipAndClaim = useCallback(() => {
@@ -189,7 +190,8 @@ export default function Claim(props){
                       backgroundColor: "#9c27b0",
                     '&:hover': {
                         backgroundColor: "#60156c"
-                      }
+                      },
+                      fontSize: "12px"
                     }}
                     onClick={backToSwitch}>Switch Network</Button>
                     {/* {
@@ -234,7 +236,8 @@ export default function Claim(props){
                       backgroundColor: "#9c27b0",
                         '&:hover': {
                             backgroundColor: "#60156c"
-                          }
+                      },
+                      fontSize: "12px"
                     }}
                     onClick={query.status == 'claim-init' ?
                             backToRecipient : 
