@@ -36,7 +36,7 @@ export default function ClaimDialog(props) {
   let steps = {
     step1: 'Step 1: Connect eligible address',
     step2: 'Step 2: Confirm airdrop network',
-    step3: 'Step 3: Confirm airdrop destination',
+    step3: 'Step 3: Confirm airdrop recipient',
     step4: 'Step 4: Confirm and claim'
   }
 
@@ -75,7 +75,7 @@ export default function ClaimDialog(props) {
             const updateConnection = {
               providerName: currentConnection.providerName,
               connectedAddress: currentConnection.connectedAddress,
-              connectedChain: (chainId == "0x7a" ? "Fuse": "Ethereum Mainnet"),
+              connectedChain: (chainId == "0x7a" ? "Fuse": "Ethereum"),
               chainId: (chainId == "0x7a" ? 122 : 1),
               providerInstance: currentConnection.providerInstance
             }
@@ -95,6 +95,7 @@ export default function ClaimDialog(props) {
             setQuery({status: 'connected'});
           }
         });
+
         currentConnection.providerInstance.currentProvider.on('accountsChanged', (res) => {
           console.log('disconnecting . . .');
           currentConnection.providerInstance.currentProvider.removeAllListeners();

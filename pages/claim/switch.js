@@ -40,8 +40,6 @@ export default function Switch(props) {
   const [query, setQuery] = useState({status: null});
   const [error, setError] = useState({status: null, code: null});
   const [isClaimed, setIsClaimed] = useState({productionMain: false, production: false});
-  const [isMob, setIsMobile] = useState(null);
-  const [displayAddress, setDisplayAddress] = useState(null);
 
   const connectedAddressRef = useRef(connectedAddress);
   const connectedChainRef = useRef(connectedChain);
@@ -60,12 +58,10 @@ export default function Switch(props) {
   }, [connectedChain]);
 
   useEffect(() => {
-    setIsMobile(props.isMobile);
     console.log('switch props -->', props);
     if (props.currentConnection){
       setProviderInstance(props.currentConnection.providerInstance);
       let address = formatAddress(props.currentConnection.connectedAddress);
-      setDisplayAddress(address);
       setConnectedAddress(props.currentConnection.connectedAddress);
       setChainId(props.currentConnection.chainId);
       if (props.currentConnection.connectedChain == 'unsupported'){
@@ -226,7 +222,7 @@ export default function Switch(props) {
                                         justifyContent: "center",
                                         alignItems: "center",
         }}>
-          (Blue is currently active)
+          {connectedChainRef.current} is your current selected network
         </Typography>
       </Grid>
       <Grid item xs={4} sx={{display:"flex", justifyContent:"center",alignItems:"center"}}>
