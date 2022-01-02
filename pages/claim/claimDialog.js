@@ -175,12 +175,20 @@ export default function ClaimDialog(props) {
         <DialogTitle sx={{fontStyle:"italic", mt: 1, pt:0, width: "80%", fontSize: "1.10rem"}}>
           {currentStep.message}
         </DialogTitle>
+        {
+          currentStep.step == 'step4' ? 
+            <Box>
+              <Typography variant="span" sx={{fontStyle: "italic", mt: 1, pt:0, width: "80%"}}>
+                You're claiming {gRep} GOOD!
+              </Typography>
+            </Box> : null
+        }
         { !connectedAddress || query.status === 'disconnect' ?
           <Box>
             <List sx={{display: "flex", flexDirection:"column"}}>
               <ListItem sx={{justifyContent: "center", alignItems: "center"}}>
                 <Typography variant="span" sx={{fontStyle: "italic", mt: 1, pt:0, width: "80%"}}>
-                  You have {gRep} GOOD Tokens to claim!
+                  You have {gRep} GOOD to claim!
                 </Typography>
               </ListItem>
               <ListItem sx={{justifyContent: "center", alignItems: "center"}}>
