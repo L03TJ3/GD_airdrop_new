@@ -294,7 +294,7 @@ export default function Claim(props){
                 variant="contained"
                 sx={{
                   fontSize: '13px', 
-                  mt: 3, 
+                  mt: isMob ? 0.5 : 3, 
                   mb: (!isEth.test(newRecValue) ||
                        newRecValue == repRecipient ? 7.5 : 2),
                   backgroundColor: "#00C3AE", 
