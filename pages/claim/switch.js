@@ -225,9 +225,9 @@ export default function Switch(props) {
               sx={{
                 mt: 3, 
                 mb: 2, 
-                backgroundColor: "#00C3AE", 
+                backgroundColor: "#1976d2", 
                   '&:hover': {
-                    backgroundColor: "#049484"
+                    backgroundColor: "#1565c0"
               }}}
               onClick={getReputation}>
                 Next
