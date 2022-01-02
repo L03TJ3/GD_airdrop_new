@@ -158,7 +158,7 @@ export default function ClaimDialog(props) {
   }, []);
 
   return (
-    <Dialog onClose={handleClose} open={open}>
+    <Dialog onClose={handleClose} open={open} sx={{margin: isMobile ? 2 : 4}}>
       <DialogContent 
         className="dialogContentContainer" 
         sx={{
