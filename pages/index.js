@@ -25,6 +25,9 @@ import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+import { formatAddress } from "../lib/connect.serv";
+import isMobileHook from "../lib/isMobile";
+
 // Claim
 import ClaimDialog from "./claim/claimDialog";
 import IneligibleAddress from "./claim/ineligible.js";
@@ -102,7 +105,7 @@ const theme = createTheme({
   }
 });
 
-const AirdropData = ({ hexProof, proofIndex, addr, reputationInWei }) => {
+const AirdropData = ({ hexProof, proofIndex, addr, reputationInWei, isMob }) => {
   return (
     <Box>
       <Paper>
@@ -113,7 +116,7 @@ const AirdropData = ({ hexProof, proofIndex, addr, reputationInWei }) => {
                 <AccountCircleOutlinedIcon />
               </Avatar>
             </ListItemAvatar>
-            <ListItemText primary={addr} />
+            <ListItemText primary={ addr && isMob ? formatAddress(addr) : addr} />
           </ListItem>
           <ListItem>
             <ListItemAvatar>
@@ -182,6 +185,8 @@ export default function SignIn() {
   const handleErrorClose = useCallback((value) => {
     setErrorOpen(false);
   }, [setErrorOpen]);
+
+  const isMobile = isMobileHook();
 
   return (
     <ThemeProvider theme={theme}>
@@ -252,7 +257,7 @@ export default function SignIn() {
               </Grid>
             </Grid>
           </Paper>
-          {data ? <AirdropData {...data} /> : null}
+          {data ? <AirdropData {...data} isMob={isMobile} /> : null}
           <Box
             component="form"
             onSubmit={handleSubmit}
