@@ -22,7 +22,7 @@ import isMobileHook from '../../lib/isMobile';
 export default function ClaimDialog(props) {
   const [claimAddress, setClaimAddress] = useState(null);
   const [connectedAddress, setConnectedAddress] = useState(null);
-  const [initClaim] = useState('init');
+  const [initClaim, setInitClaim] = useState('init');
   const {onClose, open} = props;
   const [query, setQuery] = useState({status: 'init'});
   const [gRep, setGRep] = useState(null);
@@ -34,10 +34,10 @@ export default function ClaimDialog(props) {
   const isMobile = isMobileHook();
 
   let steps = {
-    step1: 'Step 1: Connect eligible address',
-    step2: 'Step 2: Confirm airdrop network',
-    step3: 'Step 3: Confirm airdrop recipient',
-    step4: 'Step 4: Confirm and claim'
+    step1: 'Step 1/4: Connect eligible address',
+    step2: 'Step 2/4: Confirm airdrop network',
+    step3: 'Step 3/4: Confirm airdrop recipient',
+    step4: 'Step 4/4: Confirm and claim'
   }
 
   useEffect(() => {
@@ -46,22 +46,25 @@ export default function ClaimDialog(props) {
         setCurrentStep({step: step, message: message});
       }
     }
-
   }, [query]);
   
   useEffect(() => {
-    let gRep = props.proofData.reputationInWei / 1e18;
-    setGRep(gRep);
-    setClaimAddress(props.proofData.addr);
+    if (initClaim == 'init'){
+      setInitClaim("loaded");
+      let gRep = props.proofData.reputationInWei / 1e18;
+      setGRep(gRep);
+      setClaimAddress(props.proofData.addr);
+    }
     if (props.proofData.addr !== connectedAddress){
       setCurrentConnection(null);
       setConnectedAddress(null);
     }
-  }, [initClaim, props]);
+  }, [setInitClaim, props]);
 
   const handleClose = useCallback(() => {
     if (query.status == 'disconnect'){
       setQuery({status: 'init'});
+      setInitClaim('init');
     }
     onClose();
   }, [onClose, query]);

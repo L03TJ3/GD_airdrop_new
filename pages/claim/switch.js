@@ -40,6 +40,7 @@ export default function Switch(props) {
   const [query, setQuery] = useState({status: null});
   const [error, setError] = useState({status: null, code: null});
   const [isClaimed, setIsClaimed] = useState({productionMain: false, production: false});
+  const [initSwitch, setInitSwitch] = useState('init');
 
   const connectedAddressRef = useRef(connectedAddress);
   const connectedChainRef = useRef(connectedChain);
@@ -58,19 +59,20 @@ export default function Switch(props) {
   }, [connectedChain]);
 
   useEffect(() => {
-    console.log('switch props -->', props);
-    if (props.currentConnection){
-      setProviderInstance(props.currentConnection.providerInstance);
-      let address = formatAddress(props.currentConnection.connectedAddress);
-      setConnectedAddress(props.currentConnection.connectedAddress);
-      setChainId(props.currentConnection.chainId);
-      if (props.currentConnection.connectedChain == 'unsupported'){
-        wrongNetwork();
-      } else {
-        setQuery({status: null});
-        setError({status: null, code: null});
-        setConnectedChain(props.currentConnection.connectedChain);
-        alreadyClaimed(props.currentConnection);
+    if (initSwitch == 'init'){
+      setInitSwitch('loaded');
+      if (props.currentConnection){
+        setProviderInstance(props.currentConnection.providerInstance);
+        setConnectedAddress(props.currentConnection.connectedAddress);
+        setChainId(props.currentConnection.chainId);
+        if (props.currentConnection.connectedChain == 'unsupported'){
+          wrongNetwork();
+        } else {
+          setQuery({status: null});
+          setError({status: null, code: null});
+          setConnectedChain(props.currentConnection.connectedChain);
+          alreadyClaimed(props.currentConnection);
+        }
       }
     }
   }, [props]);
@@ -79,7 +81,6 @@ export default function Switch(props) {
   // this shows error message and removes/hides button for claiming
   const alreadyClaimed = async(currentConnection) => {
     setQuery({status: 'get-claim-status'});
-    console.log('triggered');
     const claimStatus = getClaimStatus(currentConnection);
     claimStatus.then((res) => {
       if (!res) {
@@ -128,7 +129,7 @@ export default function Switch(props) {
         method: 'wallet_switchEthereumChain',
         params: [{ chainId: chainId}]
       }).catch((err) => {
-        // console.log('err switch -->', err);
+        // console.log({err});
         if (err.code == 4902){
           addFuseNetwork(chainId);
         } else {
@@ -152,67 +153,6 @@ export default function Switch(props) {
 
   return (
     <Grid container spacing={0.25} sx={{justifyContent: "center"}} columnSpacing={{xs: 0.125}}>
-        {/* <Paper sx={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100px",
-                border: "1px solid rgba(128,128,128,0.26)"
-        }}>
-          <Grid item xs={isMob ? 6 : 4} sx={{borderRight: "1px solid rgba(128,128,128,0.4)", 
-                              display:"flex",
-                              flexDirection:"column",
-                              alignItems:"center",
-                              height: "70%"}}>
-            <Typography variant="h6" 
-                        gutterBottom 
-                        component="div" 
-                        sx={{fontWeight: "normal", 
-                            mt: 0.25, 
-                            mb: 0.25, 
-                            ml: isMob ? -6.25 : -3.125, 
-                            fontSize: "1rem"}}>
-              Connected Address
-            </Typography>
-            <Typography variant="span" sx={{fontStyle: "italic", 
-                                            fontWeight: "bold",
-                                            mr: isMob ? 4 : 0.5,
-                                            mt: 0.5,
-                                            paddingRight: "32px",
-            }}>
-              {displayAddress} 
-            </Typography>
-          </Grid>
-        <Grid item xs={isMob ? 2 : 4} 
-              flexDirection={"column"}
-              sx={{
-                ml:1.6,
-                display: "flex"
-                }}>
-          
-          <List>
-            <ListItem sx={{flexDirection: "column-reverse", padding: 0, ml: 1.5}}>
-              <ListItemAvatar sx={{display: "flex", justifyContent: "center"}}>
-                <Avatar sx={{mr:0, paddingRight: 0}}>
-                  <Box sx={{background: chainId == 122 ? "url(/fuse.svg)" : "url(/ethereum.svg)",
-                        width: "50px",
-                        height: "50px",
-                        backgroundRepeat: "no-repeat",
-                        backgroundSize: chainId == 122 ? "100px" : "70px",
-                        backgroundPosition: chainId == 122 ? "8px 10px" : "-15px 10px",
-                        display: "flex",
-                        justifySelf: "center",
-                        alignSelf: "center",
-                        borderRadius: "5px"
-                  }} />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary={"Network"} />
-            </ListItem>
-            </List>
-        </Grid>
-      </Paper> */}
       <Divider />
       <Grid item xs={12}>
         <Typography variant="span" sx={{textAlign: "center", 
