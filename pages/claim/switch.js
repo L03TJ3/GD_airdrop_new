@@ -4,19 +4,11 @@ import Typography from "@mui/material/Typography";
 import React, {useState, useEffect, useRef, useCallback} from 'react';
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
-import Paper from "@mui/material/Paper";
-
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
-
 
 import SwitchAndConnectButton from '../../lib/switchConnectButton.js';
 import CircularProgress from '@mui/material/CircularProgress';
 import ErrorHandler from './ErrorHandler.js';
-import {getClaimStatus, formatAddress} from '../../lib/connect.serv.js';
+import {getClaimStatus} from '../../lib/connect.serv.js';
 
 
 const stateChainIds = {

@@ -171,7 +171,6 @@ export default function ClaimDialog(props) {
         }}>
 
           <MobileInfo isMobile={isMobile} providerName={providerName} initClaim={initClaim}/>
-        {/* add dynamic step counter ?? */}
         <DialogTitle sx={{fontStyle:"italic", mt: 1, pt:0, width: "80%", fontSize: "1.10rem"}}>
           {currentStep.message}
         </DialogTitle>
