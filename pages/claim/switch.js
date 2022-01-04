@@ -166,7 +166,8 @@ export default function Switch(props) {
               backgroundImage: `url('/ethereum.svg')`,
             }}
             onClick={() => switchNetwork("0x1", "productionMain")}>
-              {isClaimed.productionMain ? <span>Claimed!</span> : ""}
+              {isClaimed.productionMain ? 
+                <Typography variant="span" sx={{fontSize: "20px"}}>Claimed!</Typography> : ""}
             </SwitchAndConnectButton>
       </Grid>
       <Grid item xs={4} sx={{display:"flex", justifyContent:"center",alignItems:"center"}}>
@@ -182,7 +183,8 @@ export default function Switch(props) {
               backgroundImage: `url('/fuse.svg')`
             }}
             onClick={() => switchNetwork("0x7a", "production")}>
-              {isClaimed.production ? <span>Claimed!</span>: ""}
+              {isClaimed.production ? 
+                <Typography variant="span" sx={{fontSize: "20px"}}>Claimed!</Typography>: ""}
             </SwitchAndConnectButton>
       </Grid>             
       {

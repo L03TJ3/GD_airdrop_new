@@ -13,10 +13,8 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 
-
 import CheckMarkDone from '../../lib/checkMarkDone.js';
 import {setNewRecipient, claimReputation, getRecipient, getPendingTXStatus, formatAddress} from '../../lib/connect.serv.js';
-
 
 const isEth = /^0x[a-fA-F0-9]{40}$/;
 
@@ -24,8 +22,7 @@ const isEth = /^0x[a-fA-F0-9]{40}$/;
  * Claim component. For setting a new recipient (optional), 
  * and claim the GOOD tokens for connected network
  * @param props contains: proofData array, currentConnection Object, callback backToSwitch, 
- * isMobile boolean
- * 
+ * isMobile boolean 
  */
 export default function Claim(props){
   const [proof, setProof] = useState(null);
