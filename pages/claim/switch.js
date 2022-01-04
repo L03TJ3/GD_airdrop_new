@@ -32,7 +32,6 @@ export default function Switch(props) {
   const [query, setQuery] = useState({status: null});
   const [error, setError] = useState({status: null, code: null});
   const [isClaimed, setIsClaimed] = useState({productionMain: false, production: false});
-  const [initSwitch, setInitSwitch] = useState('init');
 
   const connectedAddressRef = useRef(connectedAddress);
   const connectedChainRef = useRef(connectedChain);
@@ -51,23 +50,20 @@ export default function Switch(props) {
   }, [connectedChain]);
 
   useEffect(() => {
-    if (initSwitch == 'init'){
-      setInitSwitch('loaded');
-      if (props.currentConnection){
-        setProviderInstance(props.currentConnection.providerInstance);
-        setConnectedAddress(props.currentConnection.connectedAddress);
-        setChainId(props.currentConnection.chainId);
-        if (props.currentConnection.connectedChain == 'unsupported'){
-          wrongNetwork();
-        } else {
-          setQuery({status: null});
-          setError({status: null, code: null});
-          setConnectedChain(props.currentConnection.connectedChain);
-          alreadyClaimed(props.currentConnection);
-        }
+    if (props.currentConnection){
+      setProviderInstance(props.currentConnection.providerInstance);
+      setConnectedAddress(props.currentConnection.connectedAddress);
+      setChainId(props.currentConnection.chainId);
+      if (props.currentConnection.connectedChain == 'unsupported'){
+        wrongNetwork();
+      } else {
+        setQuery({status: null});
+        setError({status: null, code: null});
+        setConnectedChain(props.currentConnection.connectedChain);
+        alreadyClaimed(props.currentConnection);
       }
     }
-  }, [props]);
+  }, [props.currentConnection]);
 
   // if user has already claimed for network X, and this is the current connection,
   // this shows error message and removes/hides button for claiming
